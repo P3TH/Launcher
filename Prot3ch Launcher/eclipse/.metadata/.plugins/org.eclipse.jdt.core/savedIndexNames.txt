@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+C:\Users\tammi\Desktop\Prot3ch Launcher\eclipse\.metadata\.plugins\org.eclipse.jdt.core
+3723473201.index
+2510761702.index

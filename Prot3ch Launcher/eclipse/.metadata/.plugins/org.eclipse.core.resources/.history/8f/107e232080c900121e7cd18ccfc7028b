@@ -1,0 +1,141 @@
+/*
+ * Prot3ch Launcher
+ * Made 5/30/2013
+ * Made By Joseph Keller
+ * a.k.a dude22072
+ */
+package net.prot3ch.launcher;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+
+public class Launcher extends JFrame implements Runnable {
+	private static final long serialVersionUID = 1L;
+
+	private JPanel window = new JPanel();
+	private JButton play, help, quit;
+	private Rectangle rplay, rhelp, rquit;
+
+	private int width = 800;
+	private int height = 400;
+	private int button_width = 80;
+	private int button_height = 40;
+
+	private Thread thread;
+	private boolean running = false;
+
+	private void start() {
+		if (!running)
+			return;
+		running = true;
+		thread = new Thread(this);
+		thread.start();
+	}
+
+	public void run() {
+		while (running) {
+			Launcher launcher = new Launcher();
+			launcher.updateFrame();
+
+		}
+
+	}
+
+	public Launcher() {
+		start();
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		setUndecorated(true);
+		setTitle("Prot3ch Launcher");
+		setSize(new Dimension(width, height));
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().add(window);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setVisible(true);
+		window.setLayout(null);
+
+		renderLauncher();
+
+	}
+	
+	public void updateFrame() {
+		setLocation(200, 200);
+		System.out.println("Printed");
+	}
+
+	private void renderLauncher() {
+		/**
+		 * Code to add image to backround
+		 * not working for some reason
+		 * 
+		 * BufferStrategy bs = this.getBufferStrategy(); if (bs == null) {
+		 * createBufferStrategy(3); return; }
+		 * 
+		 * Graphics g = bs.getDrawGraphics(); g.setColor(Color.BLACK);
+		 * g.fillRect(0, 0, 800, 400); try { g.drawImage(ImageIO.read(new
+		 * File("/launcherBackround.png")), 0, 0, 800, 400, null); } catch
+		 * (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } g.setColor(Color.WHITE); g.setFont(new
+		 * Font("Verdana", 0, 20)); g.drawString("Play", 720, 90); g.dispose();
+		 * bs.show();
+		 **/
+
+		play = new JButton("Play!");
+		rplay = new Rectangle(700, 50, button_width, button_height);
+		play.setBounds(rplay);
+		window.add(play);
+
+		help = new JButton("Help!");
+		rhelp = new Rectangle(700, 300, button_width, button_height);
+		help.setBounds(rhelp);
+		window.add(help);
+
+		quit = new JButton("Quit");
+		rquit = new Rectangle(700, 350, button_width, button_height);
+		quit.setBounds(rquit);
+		window.add(quit);
+
+		play.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("play");
+			}
+		});
+
+		help.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("help");
+			}
+		});
+
+		quit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		JLabel bgtext = new JLabel("Backround Needed Still");
+		bgtext.setVerticalTextPosition(JLabel.BOTTOM);
+		bgtext.setHorizontalTextPosition(JLabel.CENTER);
+		bgtext.setFont(new Font("Arial", 0, 20));
+		window.add(bgtext);
+
+	}
+	
+	public static void main(String[] args) {
+		new Launcher();
+	}
+
+}
